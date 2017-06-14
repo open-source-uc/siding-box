@@ -1,8 +1,8 @@
 {
     "name": "siding-box",
     "productName": "siding-box",
-    "version": "1.0.0",
-    "description": "My Electron application description",
+    "version": "0.0.0",
+    "description": "Electron Menubar app for Dropbox-like synchronization with Siding",
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
@@ -11,7 +11,7 @@
         "lint": "eslint src"
     },
     "keywords": [],
-    "author": "patriciolopez",
+    "author": "Patricio López <lopezjuripatricio@gmail.com>",
     "license": "MIT",
     "config": {
         "forge": {
