@@ -1,0 +1,53 @@
+{
+    "name": "siding-box",
+    "productName": "siding-box",
+    "version": "1.0.0",
+    "description": "My Electron application description",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "lint": "echo \"No linting configured\""
+    },
+    "keywords": [],
+    "author": "patriciolopez",
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "make_targets": {
+                "win32": [
+                    "squirrel"
+                ],
+                "darwin": [
+                    "zip"
+                ],
+                "linux": [
+                    "deb",
+                    "rpm"
+                ]
+            },
+            "electronPackagerConfig": {},
+            "electronWinstallerConfig": {
+                "name": "siding_box"
+            },
+            "electronInstallerDebian": {},
+            "electronInstallerRedhat": {},
+            "github_repository": {
+                "owner": "",
+                "name": ""
+            },
+            "windowsStoreConfig": {
+                "packageName": "",
+                "name": "sidingbox"
+            }
+        }
+    },
+    "dependencies": {
+        "electron-compile": "^6.4.1",
+        "menubar": "^5.2.3"
+    },
+    "devDependencies": {
+        "electron-prebuilt-compile": "1.6.11"
+    }
+}
