@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { HashRouter as Router } from "react-router-dom";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 import UpperToolbar from "./components/UpperToolbar";
@@ -17,17 +19,24 @@ const Content = styled.div`
   flex: 1;
 `;
 
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = {};
+
+// @connect(mapStateToProps, mapDispatchToProps)
 class App extends Component {
   render() {
     return (
-      <Container>
-        <UpperToolbar />
-        <MiddleToolbar />
-        <Content />
-        <BottomToolbar />
-      </Container>
+      <Router>
+        <Container>
+          <UpperToolbar />
+          <MiddleToolbar />
+          <Content />
+          <BottomToolbar />
+        </Container>
+      </Router>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

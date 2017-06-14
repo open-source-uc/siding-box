@@ -2,7 +2,6 @@ const menubar = require("menubar");
 
 const mb = menubar({
   dir: "src/app",
-  // index: "file://src/app/index.html",
   icon: "src/app/assets/icons/menubar.png",
   tooltip: "SidingBox",
   width: 300,

@@ -1,12 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HashRouter as Router } from "react-router-dom";
+import { persistStore } from "redux-persist";
 
-import App from "./App";
+import SidingBox from "./SidingBox";
+import configureStore from "./redux/store";
 
-const SidingBox = () =>
-  <Router>
-    <App />
-  </Router>;
+const initialState = {};
+const options = {
+  hydratation: {},
+};
 
-ReactDOM.render(<SidingBox />, document.getElementById("root"));
+ReactDOM.render(
+  <SidingBox
+    store={configureStore(initialState)}
+    persistStore={persistStore}
+    options={options}
+  />,
+  document.getElementById("root")
+);

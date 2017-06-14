@@ -50,8 +50,14 @@
         "react": "^15.6.0",
         "react-dom": "^15.6.0",
         "react-icons": "^2.2.5",
+        "react-redux": "^5.0.5",
         "react-router": "^4.1.1",
         "react-router-dom": "^4.1.1",
+        "redux": "^3.6.0",
+        "redux-logger": "^3.0.6",
+        "redux-persist": "^4.8.0",
+        "redux-promise-middleware": "^4.3.0",
+        "redux-thunk": "^2.2.0",
         "styled-components": "^2.0.1"
     },
     "devDependencies": {
@@ -61,7 +67,7 @@
         "electron-prebuilt-compile": "1.6.11",
         "eslint": "^4.0.0",
         "eslint-config-prettier": "^2.1.1",
-        "eslint-plugin-prettier": "^2.0.1",
+        "eslint-plugin-prettier": "^2.1.2",
         "eslint-plugin-react": "^7.1.0",
         "prettier": "^1.2.2"
     }
