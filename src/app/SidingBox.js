@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
+import { ConnectedRouter } from "react-router-redux";
 import styled from "styled-components";
 
 import App from "./App";
@@ -17,13 +18,14 @@ class SidingBox extends Component {
   static propTypes = {
     persistStore: PropTypes.func.isRequired,
     store: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     options: PropTypes.object,
     purge: PropTypes.bool,
   };
 
   static defaultProps = {
     options: {},
-    purge: false,
+    purge: true,
   };
 
   state = {
@@ -50,7 +52,9 @@ class SidingBox extends Component {
     } else {
       return (
         <Provider store={this.props.store}>
-          <App />
+          <ConnectedRouter history={this.props.history}>
+            <App />
+          </ConnectedRouter>
         </Provider>
       );
     }

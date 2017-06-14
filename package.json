@@ -45,6 +45,7 @@
     },
     "dependencies": {
         "electron-compile": "6.4.1",
+        "history": "^4.6.2",
         "menubar": "^5.2.3",
         "prop-types": "^15.5.10",
         "react": "^15.6.0",
@@ -53,6 +54,7 @@
         "react-redux": "^5.0.5",
         "react-router": "^4.1.1",
         "react-router-dom": "^4.1.1",
+        "react-router-redux": "5.0.0-alpha.6",
         "redux": "^3.6.0",
         "redux-logger": "^3.0.6",
         "redux-persist": "^4.8.0",

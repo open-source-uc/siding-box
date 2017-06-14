@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import FATree from "react-icons/lib/fa/sitemap";
 import FANews from "react-icons/lib/fa/newspaper-o";
-import { shell } from "electron";
 
 const Container = styled.div`
   display: flex;
@@ -67,30 +66,22 @@ Logo.defaultProps = {
 };
 
 class UpperToolbar extends Component {
-  handleClick = () => {
-    console.log("click");
-  };
-
-  handleLogoClick = () => {
-    shell.openExternal("https://www.ing.puc.cl");
-  };
+  static Logo = Logo;
+  static Content = Content;
+  static News = News;
+  static Tree = Tree;
+  static Content = props =>
+    <Content {...props}>
+      <Title>
+        SidingBox
+      </Title>
+      <User>
+        pelopez2@uc.cl
+      </User>
+    </Content>;
 
   render() {
-    return (
-      <Container>
-        <Logo onClick={this.handleLogoClick} />
-        <Content onClick={this.handleClick}>
-          <Title>
-            SidingBox
-          </Title>
-          <User>
-            pelopez2@uc.cl
-          </User>
-        </Content>
-        <News />
-        <Tree />
-      </Container>
-    );
+    return <Container {...this.props} />;
   }
 }
 

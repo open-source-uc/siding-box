@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
 
-const reducer = combineReducers({});
+import router from "./modules/router";
+
+const reducer = combineReducers({
+  router,
+});
 
 export default reducer;
