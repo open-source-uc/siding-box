@@ -10,7 +10,7 @@ class ViewsNews extends Component {
   render() {
     return (
       <Content {...this.props}>
-        Files
+        News
       </Content>
     );
   }

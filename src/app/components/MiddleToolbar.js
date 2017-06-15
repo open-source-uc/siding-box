@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import styled from "styled-components";
+
+import * as periods from "../redux/modules/periods";
 
 const Container = styled.div`
   display: flex;
@@ -35,36 +38,43 @@ const LabelText = styled.span`
   margin-left: 2px;
 `;
 
+const mapStateToProps = state => ({
+  periods: state.periods.options,
+  current: state.periods.current,
+});
+
+const mapDispatchToProps = {
+  select: periods.select,
+};
+
 class MiddleToolbar extends Component {
-  constructor(props) {
-    super(props);
-    this.handlePeriodChange = this.handlePeriodChange.bind(this);
-    this.handleShowChange = this.handleShowChange.bind(this);
-  }
+  static propTypes = {
+    current: PropTypes.string.isRequired,
+    select: PropTypes.func.isRequired,
+    periods: PropTypes.array,
+  };
 
-  handlePeriodChange(event) {
-    console.log(event.target.value);
-  }
+  static defaultProps = {
+    periods: [],
+  };
 
-  handleShowChange(event) {
-    console.log(event.target.value);
-  }
+  handlePeriodChange = event => {
+    this.props.select(event.target.value);
+  };
+
+  // handleShowChange = event => {
+  //   console.log(event.target.value);
+  // };
 
   render() {
-    const current = "2017-1";
     const onlyMine = true;
-    const options = [
-      { value: "2017-1", text: "2017-1" },
-      { value: "2017-2", text: "2017-2" },
-      { value: "2016-1", text: "2016-1" },
-      { value: "2016-2", text: "2016-2" },
-    ];
+
     return (
       <Container>
         <Select
-          value={current}
+          value={this.props.current}
           onChange={this.handlePeriodChange}
-          options={options}
+          options={this.props.periods}
         />
         <label>
           <input
@@ -79,4 +89,4 @@ class MiddleToolbar extends Component {
   }
 }
 
-export default MiddleToolbar;
+export default connect(mapStateToProps, mapDispatchToProps)(MiddleToolbar);

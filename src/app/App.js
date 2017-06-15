@@ -27,7 +27,7 @@ const Content = styled.div`
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = {
-  navigate: router.navigate,
+  navigate: router.navigateReplace,
   openExternal: router.openExternal,
 };
 

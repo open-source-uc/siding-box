@@ -105,9 +105,7 @@ class BottomToolbar extends Component {
     super(props);
   }
 
-  handleRefresh = () => {
-    console.log("refresh");
-  };
+  handleRefresh = () => {};
 
   renderStatus = status => {
     switch (status) {
