@@ -79,7 +79,7 @@ class UpperToolbar extends Component {
 
   static propTypes = {
     children: PropTypes.any,
-    settings: PropTypes.func.object,
+    settings: PropTypes.object,
     onLogoClick: PropTypes.func.isRequired,
   };
 

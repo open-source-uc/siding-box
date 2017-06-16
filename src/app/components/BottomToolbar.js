@@ -117,7 +117,7 @@ class BottomToolbar extends Component {
   static Settings = Settings;
 
   static propTypes = {
-    status: PropTypes.string.isRequired,
+    status: PropTypes.string,
     children: PropTypes.any,
   };
 
@@ -134,7 +134,7 @@ class BottomToolbar extends Component {
       case "errored":
         return <Errored />;
       default:
-        return <Errored />;
+        return <div />;
     }
   };
 
