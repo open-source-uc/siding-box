@@ -49,12 +49,13 @@ const mapDispatchToProps = {
 
 class MiddleToolbar extends Component {
   static propTypes = {
-    current: PropTypes.string.isRequired,
     select: PropTypes.func.isRequired,
+    current: PropTypes.string,
     periods: PropTypes.array,
   };
 
   static defaultProps = {
+    current: null,
     periods: [],
   };
 

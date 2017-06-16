@@ -5,6 +5,7 @@ import { ConnectedRouter } from "react-router-redux";
 import styled from "styled-components";
 
 import App from "./App";
+import Theme from "./styling/Theme";
 
 const Loading = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ class SidingBox extends Component {
 
   static defaultProps = {
     options: {},
-    purge: true,
+    purge: false,
   };
 
   state = {
@@ -39,6 +40,7 @@ class SidingBox extends Component {
     const persistor = persistStore(store, options.hydratation, () => {
       // Wipeout persistence is wanted.
       if (purge) {
+        console.warn("Purging persistence..."); // eslint-disable-line
         persistor.purge();
       }
 
@@ -53,7 +55,9 @@ class SidingBox extends Component {
       return (
         <Provider store={this.props.store}>
           <ConnectedRouter history={this.props.history}>
-            <App />
+            <Theme>
+              <App />
+            </Theme>
           </ConnectedRouter>
         </Provider>
       );

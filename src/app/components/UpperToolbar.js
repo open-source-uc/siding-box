@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { ifProp } from "styled-tools";
+import { palette } from "styled-theme";
 import styled from "styled-components";
 import FATree from "react-icons/lib/fa/sitemap";
 import FANews from "react-icons/lib/fa/newspaper-o";
@@ -40,49 +44,62 @@ const User = styled.h2`
 `;
 
 const Tree = styled(FATree)`
+  color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   font-size: 20px;
   cursor: pointer;
   margin-left: 15px;
-  color: #808080;
 `;
 
 const News = styled(FANews)`
-  color: #808080;
+  color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   font-size: 22px;
   cursor: pointer;
   margin-left: 15px;
   padding-top: 2px;
 `;
 
-const Logo = styled.img`
-  color: #808080;
+const Logo = styled.img.attrs({
+  src: "./assets/images/logo.png",
+})`
+  color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   height: 25px;
   width: 25px;
   cursor: pointer;
 `;
 
-Logo.defaultProps = {
-  src: "./assets/images/logo.png",
-};
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+
+const mapDispatchToProps = null;
 
 class UpperToolbar extends Component {
-  static Logo = Logo;
-  static Content = Content;
   static News = News;
   static Tree = Tree;
-  static Content = props =>
-    <Content {...props}>
-      <Title>
-        SidingBox
-      </Title>
-      <User>
-        pelopez2@uc.cl
-      </User>
-    </Content>;
+
+  static propTypes = {
+    children: PropTypes.any,
+    settings: PropTypes.func.object,
+    onLogoClick: PropTypes.func.isRequired,
+  };
 
   render() {
-    return <Container {...this.props} />;
+    const { children, settings, onLogoClick, ...props } = this.props;
+    const isLogged = settings.username && settings.host && settings.password;
+
+    return (
+      <Container {...props}>
+        <Logo onClick={onLogoClick} />
+        <Content>
+          <Title>SidingBox</Title>
+          {isLogged
+            ? <User>{[settings.username, settings.host].join("@")}</User>
+            : <User>Iniciar sessión</User>}
+        </Content>
+        {children}
+      </Container>
+    );
   }
 }
 
-export default UpperToolbar;
+export default connect(mapStateToProps, mapDispatchToProps)(UpperToolbar);

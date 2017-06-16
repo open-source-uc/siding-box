@@ -46,6 +46,7 @@
     "dependencies": {
         "electron-compile": "6.4.1",
         "history": "^4.6.2",
+        "lodash": "^4.17.4",
         "menubar": "^5.2.3",
         "prop-types": "^15.5.10",
         "react": "^15.6.1",
@@ -60,7 +61,9 @@
         "redux-persist": "^4.8.0",
         "redux-promise-middleware": "^4.3.0",
         "redux-thunk": "^2.2.0",
-        "styled-components": "^2.1.0"
+        "styled-components": "^2.1.0",
+        "styled-theme": "^0.3.3",
+        "styled-tools": "^0.1.4"
     },
     "devDependencies": {
         "babel-eslint": "^7.2.1",

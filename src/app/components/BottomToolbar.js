@@ -1,5 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import { ifProp } from "styled-tools";
+import { palette } from "styled-theme";
 import FARefresh from "react-icons/lib/fa/refresh";
 import FACheck from "react-icons/lib/fa/check";
 import FAWarning from "react-icons/lib/fa/exclamation-triangle";
@@ -19,10 +23,10 @@ const Container = styled.div`
   background-color: #EFEFEF;
   border-top: solid 1px rgba(104,104,104,.25);
   padding: 0 12px;
-  color: #808080;
 `;
 
 const Status = styled.div`
+  color: ${palette("grayscale", 2)};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -84,6 +88,7 @@ const Buttons = styled.div`
 
 // Bigger click area with hack.
 const Settings = styled(FACogs)`
+  color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   font-size: 15px;
   cursor: pointer;
   padding: 5px;
@@ -93,6 +98,7 @@ const Settings = styled(FACogs)`
 
 // Bigger click area with hack.
 const Folder = styled(FAFolder)`
+  color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   font-size: 15px;
   cursor: pointer;
   padding: 5px;
@@ -100,10 +106,20 @@ const Folder = styled(FAFolder)`
   margin-left: 7px;
 `;
 
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+
+const mapDispatchToProps = null;
+
 class BottomToolbar extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static Folder = Folder;
+  static Settings = Settings;
+
+  static propTypes = {
+    status: PropTypes.string.isRequired,
+    children: PropTypes.any,
+  };
 
   handleRefresh = () => {};
 
@@ -118,23 +134,22 @@ class BottomToolbar extends Component {
       case "errored":
         return <Errored />;
       default:
-        return null;
+        return <Errored />;
     }
   };
 
   render() {
-    const status = "refreshing";
+    const { props: { children, status, ...props } } = this;
 
     return (
-      <Container>
+      <Container {...props}>
         {this.renderStatus(status)}
         <Buttons>
-          <Folder />
-          <Settings />
+          {children}
         </Buttons>
       </Container>
     );
   }
 }
 
-export default BottomToolbar;
+export default connect(mapStateToProps, mapDispatchToProps)(BottomToolbar);
