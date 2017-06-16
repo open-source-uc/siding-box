@@ -1,24 +1,25 @@
-const menubar = require("menubar");
+import React from "react";
+import ReactDOM from "react-dom";
+import { persistStore } from "redux-persist";
+import createHistory from "history/createMemoryHistory";
 
-const mb = menubar({
-  dir: "src/app",
-  icon: "src/app/assets/icons/menubar.png",
-  tooltip: "SidingBox",
-  width: 300,
-  height: 420,
-  showDockIcon: false,
-  alwaysOnTop: true, // Useful for development
-});
+import SidingBox from "./app/SidingBox";
+import configureStore from "./app/redux/store";
 
-// https://github.com/maxogden/menubar#events
-mb.on("ready", function ready() {
-  // your app code here
-});
+const initialState = {};
+const options = {
+  hydratation: {},
+};
+const objects = {
+  history: createHistory(),
+};
 
-mb.on("after-create-window", function created() {
-  mb.window.openDevTools();
-});
-
-// mb.on("after-hide", function hidden () {
-//   mb.app.hide();
-// });
+ReactDOM.render(
+  <SidingBox
+    store={configureStore(initialState, objects)}
+    persistStore={persistStore}
+    options={options}
+    history={objects.history}
+  />,
+  document.getElementById("root")
+);

@@ -59,7 +59,7 @@ const News = styled(FANews)`
 `;
 
 const Logo = styled.img.attrs({
-  src: "./assets/images/logo.png",
+  src: "./app/assets/images/logo.png",
 })`
   color: ${ifProp("active", palette("grayscale", 0), palette("grayscale", 2))};
   height: 25px;
