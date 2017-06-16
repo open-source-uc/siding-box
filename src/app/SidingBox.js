@@ -5,6 +5,7 @@ import { ConnectedRouter } from "react-router-redux";
 import styled from "styled-components";
 
 import App from "./App";
+import Electron from "./Electron";
 import Theme from "./styling/Theme";
 
 const Loading = styled.div`
@@ -15,7 +16,7 @@ const Loading = styled.div`
   height: 100vh;
 `;
 
-class SidingBox extends Component {
+export default class SidingBox extends Component {
   static propTypes = {
     persistStore: PropTypes.func.isRequired,
     store: PropTypes.object.isRequired,
@@ -54,15 +55,15 @@ class SidingBox extends Component {
     } else {
       return (
         <Provider store={this.props.store}>
-          <ConnectedRouter history={this.props.history}>
-            <Theme>
-              <App />
-            </Theme>
-          </ConnectedRouter>
+          <Electron>
+            <ConnectedRouter history={this.props.history}>
+              <Theme>
+                <App />
+              </Theme>
+            </ConnectedRouter>
+          </Electron>
         </Provider>
       );
     }
   }
 }
-
-export default SidingBox;

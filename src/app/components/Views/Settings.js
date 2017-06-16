@@ -1,3 +1,4 @@
+import { remote } from "electron";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -21,15 +22,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setCredentials: settings.set,
-  resetCredentials: settings.reset,
+  setConfig: settings.setConfig,
+  setCredentials: settings.setCredentials,
+  resetCredentials: settings.resetCredentials,
 };
 
 class ViewsSettings extends Component {
   static propTypes = {
+    settings: PropTypes.object.isRequired,
+    setConfig: PropTypes.func.isRequired,
     setCredentials: PropTypes.func.isRequired,
     resetCredentials: PropTypes.func.isRequired,
-    settings: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -54,7 +57,7 @@ class ViewsSettings extends Component {
   handleChange = event =>
     this.setState({ [event.target.name]: event.target.value });
 
-  handleSubmit = event => {
+  handleCredentialSubmit = event => {
     event.preventDefault();
     this.props.setCredentials({
       username: this.state.email.split("@")[0],
@@ -63,8 +66,16 @@ class ViewsSettings extends Component {
     });
   };
 
-  handleReset = () => {
-    this.props.resetCredentials();
+  handleFolderClick = () => {
+    const options = {
+      title: "Selecciona carpeta de sincronización",
+      defaultPath: this.props.settings.directory,
+      properties: ["openDirectory", "createDirectory", "promptToCreate"],
+    };
+    return remote.dialog.showOpenDialog(options, (directories = []) => {
+      const directory = directories[0];
+      if (directory) this.props.setConfig({ directory });
+    });
   };
 
   render() {
@@ -77,7 +88,7 @@ class ViewsSettings extends Component {
 
     return (
       <Content {...this.props}>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleCredentialSubmit}>
           <label>
             Usuario:
             <input
@@ -97,15 +108,24 @@ class ViewsSettings extends Component {
               name="password"
               disabled={filled}
               value={this.state.password}
+              placeholder="password"
               onChange={this.handleChange}
             />
           </label>
           <br />
           <input type="submit" value="Guardar" disabled={filled || !valid} />
+          <button onClick={this.props.resetCredentials} disabled={!filled}>
+            Reset
+          </button>
         </Form>
-        <button type="submit" onClick={this.handleReset} disabled={!filled}>
-          Reset
-        </button>
+        <hr />
+        <div>
+          <input type="text" value={settings.directory} disabled />
+          <br />
+          <button onClick={this.handleFolderClick}>
+            Seleccionar carpeta
+          </button>
+        </div>
       </Content>
     );
   }

@@ -1,10 +1,18 @@
-const SET_CREDENTIALS = "siding-box/settings/set-credentials";
-const RESET_CREDENTIALS = "siding-box/settings/reset-credentials";
+import get from "lodash/get";
+import path from "path";
+
+const SET_CREDENTIALS = "siding-box/settings/SET_CREDENTIALS";
+const RESET_CREDENTIALS = "siding-box/settings/RESET_CREDENTIALS";
+const LOAD_DEFAULTS = "siding-box/settings/LOAD_DEFAULTS";
+const LOAD_DEFAULTS_FULFILLED = "siding-box/settings/LOAD_DEFAULTS_FULFILLED";
+const SET_CONFIG = "siding-box/settings/SET_CONFIG";
 
 const initialState = {
   username: "",
   host: "",
   password: "",
+  directory: null,
+  defaults: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -18,7 +26,30 @@ export default function reducer(state = initialState, action) {
       };
     }
     case RESET_CREDENTIALS: {
-      return { ...initialState };
+      return {
+        ...state,
+        username: "",
+        host: "",
+        password: "",
+      };
+    }
+    case LOAD_DEFAULTS_FULFILLED: {
+      return {
+        ...state,
+        defaults: action.payload,
+        directory:
+          state.directory ||
+            path.join(
+              get(action.payload, ["directories", "documents"]),
+              "SidingBox"
+            ),
+      };
+    }
+    case SET_CONFIG: {
+      return {
+        ...state,
+        directory: action.payload.directory || state.directory,
+      };
     }
     default: {
       return state;
@@ -26,11 +57,21 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const set = (credentials = {}) => ({
+export const setCredentials = (credentials = {}) => ({
   type: SET_CREDENTIALS,
   payload: credentials,
 });
 
-export const reset = () => ({
+export const resetCredentials = () => ({
   type: RESET_CREDENTIALS,
+});
+
+export const loadDefaults = () => ({
+  type: LOAD_DEFAULTS,
+  payload: fetch("http://localhost:9999/enviorement").then(data => data.json()),
+});
+
+export const setConfig = config => ({
+  type: SET_CONFIG,
+  payload: config,
 });
