@@ -1,0 +1,36 @@
+{
+  "name": "siding-box-core",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "prebuild": "rimraf lib",
+    "build": "babel src --out-dir lib --source-maps"
+  },
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "login-uc-siding": "^0.3.0",
+    "popsicle": "^9.1.0"
+  },
+  "optionalDependencies": {
+    "cheerio": "^1.0.0-rc.1",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.5.2",
+    "rimraf": "^2.6.1"
+  },
+  "babel": {
+    "presets": [
+      ["env", {
+        "exclude": ["transform-regenerator"]
+      }]
+    ]
+  }
+}
