@@ -8,9 +8,10 @@ module.exports = {
     },
   },
   "env": {
-    "node": true,
-    "browser": true,
     "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true,
   },
   "extends": [
     "eslint:recommended",
@@ -25,6 +26,7 @@ module.exports = {
   "rules": {
     "prettier/prettier": ["error", {
       "trailingComma": "es5",
+      "printWidth": 120,
     }],
   },
 };
